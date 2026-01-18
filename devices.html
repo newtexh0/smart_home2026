@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Devices</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/all.min.css">
+    <style>
+        /* إعادة استخدام نفس تنسيق الصفوف */
+        .device-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+            border-bottom: 1px solid #eee;
+        }
+        .device-row:last-child { border-bottom: none; }
+        .device-label { font-weight: bold; font-size: 1.1rem; }
+        .device-sub { font-size: 0.9rem; color: #666; display: block; }
+    </style>
+</head>
+<body>
+    <header class="container"><h1>My Smart Home</h1></header>
+    <nav class="container">
+        <ul>
+            <li><a href="index.html">Dashboard</a></li>
+            <li><a href="rooms.html">Rooms</a></li>
+            <li><a href="devices.html" aria-current="page">Devices</a></li>
+            <li><a href="scenes.html">Scenes</a></li>
+            <li><a href="accessibility.html">Accessibility</a></li>
+            <li><a href="about.html">About</a></li>
+        </ul>
+    </nav>
+
+    <main class="container">
+        <h2>Device Inventory</h2>
+        
+        <h3><i class="fas fa-lightbulb"></i> Lighting</h3>
+        <div class="card">
+            <div class="device-row">
+                <div>
+                    <span class="device-label">Living Room</span>
+                    <span id="btn-living-status" class="device-sub">...</span>
+                </div>
+                <button id="btn-living" class="iot-switch" onclick="toggleDevice('livingLight')"></button>
+            </div>
+
+            <div class="device-row">
+                <div>
+                    <span class="device-label">Kitchen Ceiling</span>
+                    <span id="btn-kitchen-status" class="device-sub">...</span>
+                </div>
+                <button id="btn-kitchen" class="iot-switch" onclick="toggleDevice('kitchenLight')"></button>
+            </div>
+
+            <div class="device-row">
+                <div>
+                    <span class="device-label">Master Bedroom</span>
+                    <span id="btn-bed-light-status" class="device-sub">...</span>
+                </div>
+                <button id="btn-bed-light" class="iot-switch" onclick="toggleDevice('bedroomLight')"></button>
+            </div>
+        </div>
+
+        <h3 style="margin-top: 30px;"><i class="fas fa-shield-alt"></i> Security & Access</h3>
+        <div class="card">
+            <div class="device-row">
+                <div>
+                    <span class="device-label">Front Door Lock</span>
+                    <span id="btn-door-status" class="device-sub">...</span>
+                </div>
+                <button id="btn-door" class="iot-switch security-mode" onclick="toggleDevice('frontDoor')"></button>
+            </div>
+
+            <div class="device-row">
+                <div>
+                    <span class="device-label">Main Alarm</span>
+                    <span id="btn-alarm-status" class="device-sub">...</span>
+                </div>
+                <button id="btn-alarm" class="iot-switch security-mode" onclick="toggleDevice('alarmSystem')"></button>
+            </div>
+        </div>
+        
+        <h3 style="margin-top: 30px;"><i class="fas fa-plug"></i> Appliances</h3>
+        <div class="card">
+            <div class="device-row">
+                <div>
+                    <span class="device-label">Smart TV</span>
+                    <span id="btn-tv-status" class="device-sub">...</span>
+                </div>
+                <button id="btn-tv" class="iot-switch" onclick="toggleDevice('livingTV')"></button>
+            </div>
+
+            <div class="device-row">
+                <div>
+                    <span class="device-label">Coffee Maker</span>
+                    <span id="btn-coffee-status" class="device-sub">...</span>
+                </div>
+                <button id="btn-coffee" class="iot-switch" onclick="toggleDevice('kitchenCoffee')"></button>
+            </div>
+        </div>
+
+    </main>
+    <div id="toast"></div>
+    <script src="js/main.js"></script>
+</body>
+</html>

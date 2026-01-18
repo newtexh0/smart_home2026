@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Scenes</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/all.min.css">
+</head>
+<body>
+    <header class="container"><h1><i class="fas fa-home"></i> Smart Hub</h1></header>
+    <nav class="container">
+        <ul>
+            <li><a href="index.html">Dashboard</a></li>
+            <li><a href="rooms.html">Rooms</a></li>
+            <li><a href="devices.html">Devices</a></li>
+            <li><a href="scenes.html" aria-current="page">Scenes</a></li>
+            <li><a href="accessibility.html">Accessibility</a></li>
+            <li><a href="about.html">About</a></li>
+        </ul>
+    </nav>
+    <main class="container">
+        <h2>Automation Scenes</h2>
+        <p>Tap a scene to Toggle ON/OFF. The system ensures only one scene runs at a time.</p>
+        
+        <div class="grid">
+            <button id="scene-night" class="card scene-card" onclick="toggleScene('night')">
+                <div class="scene-loader"></div>
+                <div class="scene-power-indicator"></div>
+                <i class="fas fa-moon scene-icon"></i>
+                <span class="scene-status-text">READY</span>
+                <h3>Good Night</h3>
+                <p style="font-size:0.9rem;">Locks doors, Arms security, Lights OFF.</p>
+            </button>
+            
+            <button id="scene-away" class="card scene-card" onclick="toggleScene('away')">
+                <div class="scene-loader"></div>
+                <div class="scene-power-indicator"></div>
+                <i class="fas fa-shield-alt scene-icon"></i>
+                <span class="scene-status-text">READY</span>
+                <h3>Away Mode</h3>
+                <p style="font-size:0.9rem;">Full Security, Eco Thermostat, Appliances OFF.</p>
+            </button>
+
+            <button id="scene-reading" class="card scene-card" onclick="toggleScene('reading')">
+                <div class="scene-loader"></div>
+                <div class="scene-power-indicator"></div>
+                <i class="fas fa-book-open scene-icon"></i>
+                <span class="scene-status-text">READY</span>
+                <h3>Reading Time</h3>
+                <p style="font-size:0.9rem;">Focus lighting, Blinds open, Silent mode.</p>
+            </button>
+        </div>
+    </main>
+    <div id="toast"></div>
+    <script src="js/main.js"></script>
+</body>
+</html>

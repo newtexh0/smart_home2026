@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rooms - Smart Home</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/all.min.css">
+    <style>
+        /* CSS محلي لتحسين شكل قائمة الأجهزة داخل البطاقة */
+        .device-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid #eee;
+        }
+        .device-row:last-child { border-bottom: none; }
+        .device-info { display: flex; align-items: center; gap: 10px; }
+        .device-btn-small { padding: 8px 12px; font-size: 0.9rem; min-width: 100px; }
+    </style>
+</head>
+<body>
+    <header class="container"><h1>My Smart Home</h1></header>
+    <nav class="container">
+        <ul>
+            <li><a href="index.html">Dashboard</a></li>
+            <li><a href="rooms.html" aria-current="page">Rooms</a></li>
+            <li><a href="devices.html">Devices</a></li>
+            <li><a href="scenes.html">Scenes</a></li>
+            <li><a href="accessibility.html">Accessibility</a></li>
+            <li><a href="about.html">About</a></li>
+        </ul>
+    </nav>
+
+    <main class="container">
+    <h2>My Rooms & Devices</h2>
+    <div class="grid">
+        
+        <article class="card">
+            <h3><i class="fas fa-couch"></i> Living Room</h3>
+            <img src="images/living-room.png" alt="Modern Smart Living Room" class="real-img">
+            
+            <div class="device-row">
+                <div class="device-info">
+                    <i class="fas fa-lightbulb"></i>
+                    <div>
+                        <strong>Main Light</strong><br>
+                        <small id="btn-living-status" class="status-badge">...</small>
+                    </div>
+                </div>
+                <button id="btn-living" class="iot-switch" onclick="toggleDevice('livingLight')"></button>
+            </div>
+
+            <div class="device-row">
+                <div class="device-info">
+                    <i class="fas fa-tv"></i>
+                    <div>
+                        <strong>Smart TV</strong><br>
+                        <small id="btn-tv-status" class="status-badge">...</small>
+                    </div>
+                </div>
+                <button id="btn-tv" class="iot-switch" onclick="toggleDevice('livingTV')"></button>
+            </div>
+
+            <div class="device-row">
+                <div class="device-info">
+                    <i class="fas fa-blinds"></i>
+                    <div>
+                        <strong>Window Blinds</strong><br>
+                        <small id="btn-blinds-status" class="status-badge">...</small>
+                    </div>
+                </div>
+                <button id="btn-blinds" class="iot-switch" onclick="toggleDevice('livingBlinds')"></button>
+            </div>
+        </article>
+
+        <article class="card">
+            <h3><i class="fas fa-utensils"></i> Kitchen</h3>
+            <img src="images/kitchen.png" alt="Modern Smart Living Room" class="real-img">
+            <div class="device-row">
+                <div class="device-info">
+                    <i class="fas fa-lightbulb"></i>
+                    <div>
+                        <strong>Ceiling Light</strong><br>
+                        <small id="btn-kitchen-status" class="status-badge">...</small>
+                    </div>
+                </div>
+                <button id="btn-kitchen" class="iot-switch" onclick="toggleDevice('kitchenLight')"></button>
+            </div>
+
+            <div class="device-row">
+                <div class="device-info">
+                    <i class="fas fa-mug-hot"></i>
+                    <div>
+                        <strong>Coffee Maker</strong><br>
+                        <small id="btn-coffee-status" class="status-badge">...</small>
+                    </div>
+                </div>
+                <button id="btn-coffee" class="iot-switch" onclick="toggleDevice('kitchenCoffee')"></button>
+            </div>
+        </article>
+
+        <article class="card">
+            <h3><i class="fas fa-bed"></i> Bedroom</h3>
+<img src="images/bedroom.png" alt="Modern Smart Living Room" class="real-img">            
+            <div class="device-row">
+                <div class="device-info">
+                    <i class="fas fa-lightbulb"></i>
+                    <div>
+                        <strong>Night Light</strong><br>
+                        <small id="btn-bed-light-status" class="status-badge">...</small>
+                    </div>
+                </div>
+                <button id="btn-bed-light" class="iot-switch" onclick="toggleDevice('bedroomLight')"></button>
+            </div>
+
+            <div class="device-row">
+                <div class="device-info">
+                    <i class="fas fa-fan"></i>
+                    <div>
+                        <strong>Ceiling Fan</strong><br>
+                        <small id="btn-fan-status" class="status-badge">...</small>
+                    </div>
+                </div>
+                <button id="btn-fan" class="iot-switch" onclick="toggleDevice('bedroomFan')"></button>
+            </div>
+        </article>
+
+        <article class="card">
+            <h3><i class="fas fa-warehouse"></i> Entrance</h3>
+<img src="images/entrance.png" alt="Modern Smart Living Room" class="real-img">            
+            <div class="device-row">
+                <div class="device-info">
+                    <i class="fas fa-lock"></i>
+                    <div>
+                        <strong>Front Door Lock</strong><br>
+                        <small id="btn-door-status" class="status-badge">...</small>
+                    </div>
+                </div>
+                <button id="btn-door" class="iot-switch security-mode" onclick="toggleDevice('frontDoor')"></button>
+            </div>
+        </article>
+
+    </div>
+</main>
+    <div id="toast"></div>
+    <script src="js/main.js"></script>
+</body>
+</html>

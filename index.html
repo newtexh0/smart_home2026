@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Home Dashboard</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* --- Dashboard Specific Styles --- */
+        
+        
+        /* Thermostat Control */
+        .thermostat-control {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 50px;
+            margin-top: 15px;
+        }
+        .temp-display { font-size: 2rem; font-weight: bold; color: var(--text-main); }
+        .temp-btn {
+            width: 40px; height: 40px; border-radius: 50%; border: none;
+            background: white; box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            cursor: pointer; font-size: 1.2rem; color: var(--primary-color);
+            transition: transform 0.2s;
+        }
+        .temp-btn:active { transform: scale(0.9); }
+
+        /* Energy Pulse */
+        .live-indicator {
+            width: 10px; height: 10px; background-color: var(--success);
+            border-radius: 50%; display: inline-block; margin-right: 5px;
+            box-shadow: 0 0 0 rgba(52, 199, 89, 0.4);
+            animation: pulse-green 2s infinite;
+        }
+        
+        @keyframes pulse-green {
+            0% { box-shadow: 0 0 0 0 rgba(52, 199, 89, 0.7); }
+            70% { box-shadow: 0 0 0 10px rgba(52, 199, 89, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(52, 199, 89, 0); }
+        }
+
+        /* Mobile Adjustments */
+        @media (max-width: 600px) {
+            .welcome-banner { flex-direction: column; text-align: center; gap: 15px; }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="container">
+        <h1><i class="fas fa-home"></i> Smart Hub</h1>
+    </header>
+
+    <nav class="container">
+        <ul>
+            <li><a href="index.html" aria-current="page">Dashboard</a></li>
+            <li><a href="rooms.html">Rooms</a></li>
+            <li><a href="devices.html">Devices</a></li>
+            <li><a href="scenes.html">Scenes</a></li>
+            <li><a href="accessibility.html">Accessibility</a></li>
+            <li><a href="about.html">About</a></li>
+        </ul>
+    </nav>
+
+    <main class="container">
+        
+        <section class="welcome-banner">
+            <div class="welcome-text">
+    <h2 id="greet-msg">Welcome Home</h2>
+    
+    <p id="system-status-msg" style="color: white; opacity: 1; font-size: 1.1rem; text-shadow: 0 1px 2px rgba(0,0,0,0.3);">
+        System scanning...
+    </p>
+</div>
+            <div class="live-clock" id="clock">00:00</div>
+        </section>
+
+        <div class="grid">
+            
+            <article class="card">
+                <div style="display:flex; justify-content:space-between;">
+                    <h3><i class="fas fa-thermometer-half"></i> Climate</h3>
+                    <span class="status-badge status-active">AUTO</span>
+                </div>
+                <div style="text-align: center; margin: 10px 0;">
+                    <i class="fas fa-cloud-sun" style="font-size: 3rem; color: #ffc107;"></i>
+                    <p style="margin-top:5px; color:#666;">Indoor Temperature</p>
+                </div>
+                
+                <div class="thermostat-control">
+                    <button class="temp-btn" onclick="changeTemp(-1)" aria-label="Decrease Temperature">
+                        <i class="fas fa-minus"></i>
+                    </button>
+                    <span id="temp-val" class="temp-display">22°C</span>
+                    <button class="temp-btn" onclick="changeTemp(1)" aria-label="Increase Temperature">
+                        <i class="fas fa-plus"></i>
+                    </button>
+                </div>
+            </article>
+
+            <article class="card" id="security-card">
+                <div style="display:flex; justify-content:space-between;">
+                    <h3><i class="fas fa-shield-alt"></i> Security</h3>
+                    <i id="sec-icon" class="fas fa-check-circle" style="font-size: 1.5rem; color: var(--success);"></i>
+                </div>
+                
+                <img src="images/security-feed.png" alt="Live Security Camera Feed" class="real-img" style="height: 120px;">
+
+                <div class="dash-row">
+                    <span>Main Alarm</span>
+                    <button id="btn-alarm" class="iot-switch security-mode" onclick="toggleDevice('alarmSystem')"></button>
+                </div>
+            </article>
+
+            <article class="card">
+                <h3><i class="fas fa-bolt"></i> Energy Usage</h3>
+                <div style="margin: 20px 0;">
+                    <div style="display: flex; align-items: baseline; gap: 10px;">
+                        <h2 style="margin: 0; font-size: 2.5rem;">
+                            <span id="watt-usage">450</span> <span style="font-size: 1rem; color:#666;">W</span>
+                        </h2>
+                        <small style="color: var(--success); font-weight: bold;">
+                            <span class="live-indicator"></span> LIVE
+                        </small>
+                    </div>
+                    <p style="color: #666; font-size: 0.9rem;">Daily Avg: 3.2 kWh</p>
+                </div>
+                <div style="background: #eee; height: 10px; border-radius: 5px; overflow: hidden;">
+                    <div id="energy-bar" style="width: 45%; height: 100%; background: var(--primary-color); transition: width 0.5s;"></div>
+                </div>
+            </article>
+
+            <article class="card">
+                <h3><i class="fas fa-thumbtack"></i> Quick Access</h3>
+                
+                <div class="dash-row">
+                    <div class="device-info">
+                        <i class="fas fa-lock"></i>
+                        <span>Front Door</span>
+                    </div>
+                    <button id="btn-door" class="iot-switch security-mode" onclick="toggleDevice('frontDoor')"></button>
+                </div>
+
+                <div class="dash-row">
+                    <div class="device-info">
+                        <i class="fas fa-lightbulb"></i>
+                        <span>Living Light</span>
+                    </div>
+                    <button id="btn-living" class="iot-switch" onclick="toggleDevice('livingLight')"></button>
+                </div>
+            </article>
+
+        </div>
+    </main>
+
+    <div id="toast"></div>
+    <script src="js/main.js"></script>
+
+    <script>
+        // 1. Live Clock & Greeting
+        function updateTime() {
+            const now = new Date();
+            const timeString = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+            document.getElementById('clock').innerText = timeString;
+
+            const hour = now.getHours();
+            let greet = "Welcome Home";
+            if (hour < 12) greet = "Good Morning";
+            else if (hour < 18) greet = "Good Afternoon";
+            else greet = "Good Evening";
+            
+            document.getElementById('greeting').innerText = greet + ", User";
+        }
+        setInterval(updateTime, 1000); // Update every second
+        updateTime(); // Run immediately
+
+        // 2. Thermostat Logic (Local override for Demo)
+        function updateTempDisplay() {
+            // Get state from main.js logic (via localStorage)
+            const state = JSON.parse(localStorage.getItem('sh_state'));
+            if(state) {
+                const tempVal = document.getElementById('temp-val');
+                tempVal.innerText = state.thermostat + "°C";
+                
+                // Color feedback based on temperature
+                if(state.thermostat > 24) tempVal.style.color = "#dc3545"; // Hot
+                else if (state.thermostat < 18) tempVal.style.color = "#0056b3"; // Cold
+                else tempVal.style.color = "#333"; // Normal
+            }
+        }
+
+        function changeTemp(amount) {
+            // Read, Modify, Save (HCI: Immediate Control)
+            let state = JSON.parse(localStorage.getItem('sh_state'));
+            state.thermostat += amount;
+            // Clamp values
+            if (state.thermostat > 30) state.thermostat = 30;
+            if (state.thermostat < 16) state.thermostat = 16;
+            
+            localStorage.setItem('sh_state', JSON.stringify(state));
+            
+            // Update UI & Global State
+            appState.thermostat = state.thermostat; 
+            updateTempDisplay();
+        }
+        // Initialize Temp
+        updateTempDisplay();
+
+        // 3. Simulated Energy Fluctuation (Realism)
+        setInterval(() => {
+            // Random fluctuation between 420 and 480 Watts
+            const randomWatts = Math.floor(Math.random() * (480 - 420 + 1) + 420);
+            document.getElementById('watt-usage').innerText = randomWatts;
+            
+            // Animate bar width
+            const percent = (randomWatts / 1000) * 100; // Assume max 1000W load
+            document.getElementById('energy-bar').style.width = percent + "%";
+        }, 2000);
+
+        // 4. Security Icon Sync (HCI: Visibility of Status)
+        // Listen to clicks to update the shield icon color immediately
+        document.body.addEventListener('click', () => {
+            setTimeout(() => {
+                const state = JSON.parse(localStorage.getItem('sh_state'));
+                const icon = document.getElementById('sec-icon');
+                if(state.alarmSystem) {
+                    icon.className = "fas fa-shield-alt";
+                    icon.style.color = "var(--primary-color)"; // Armed
+                } else {
+                    icon.className = "fas fa-exclamation-triangle";
+                    icon.style.color = "#ffc107"; // Disarmed warning
+                }
+            }, 100); // Small delay to allow main.js to save first
+        });
+        // Run once on load
+        document.body.click(); 
+    </script>
+</body>
+</html>

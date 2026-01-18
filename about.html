@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About the Developer</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/all.min.css">
+    <style>
+        /* تنسيق خاص لقسم التعريف */
+        .profile-header {
+            display: flex;
+            align-items: center;
+            gap: 25px;
+            margin-bottom: 20px;
+        }
+        .profile-avatar {
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(135deg, #e0e0e0, #f5f5f5);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: var(--primary-color);
+            border: 4px solid white;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+        .profile-details h2 { margin: 0; font-size: 1.8rem; color: var(--text-main); }
+        .profile-details .title { color: var(--primary-color); font-weight: bold; font-size: 1.1rem; margin: 5px 0; }
+        .profile-details .bio { color: var(--text-muted); font-size: 0.95rem; }
+
+        .skills-tag {
+            background: #e9ecef;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #495057;
+            display: inline-block;
+            margin: 2px;
+        }
+    </style>
+</head>
+<body>
+    <header class="container"><h1>My Smart Home</h1></header>
+    
+    <nav class="container">
+        <ul>
+            <li><a href="index.html">Dashboard</a></li>
+            <li><a href="rooms.html">Rooms</a></li>
+            <li><a href="devices.html">Devices</a></li>
+            <li><a href="scenes.html">Scenes</a></li>
+            <li><a href="accessibility.html">Accessibility</a></li>
+            <li><a href="about.html" aria-current="page">About</a></li>
+        </ul>
+    </nav>
+
+    <main class="container">
+        <section style="text-align: center; margin-bottom: 40px;">
+            <h2>About the Project & Developer</h2>
+            <p>Bridging the gap between Cyber-Physical Systems (CPS) and Human-Computer Interaction.</p>
+        </section>
+
+        <div class="grid">
+            
+            <article class="card" style="grid-column: span 1; border-top: 5px solid var(--primary-color);">
+                <div class="profile-header">
+                    <div class="profile-avatar">
+                        <i class="fas fa-user-tie"></i>
+                    </div>
+                    <div class="profile-details">
+                        <h2>Eng. Hassan Mossa Rayyan</h2>
+                        <p class="title">Network Engineer | Master CPS</p>
+                        <p class="bio">Researcher in Smart Environments & IoT Security.</p>
+                    </div>
+                </div>
+                
+                <hr style="border: 0; border-top: 1px solid #eee; margin: 15px 0;">
+
+                <ul style="list-style: none; padding: 0; line-height: 2;">
+                    <li><i class="fas fa-graduation-cap" style="width: 25px; color: var(--primary-color);"></i> <strong>Master Degree:</strong> Cyber-Physical Systems (CPS)</li>
+                    <li><i class="fas fa-network-wired" style="width: 25px; color: var(--primary-color);"></i> <strong>Profession:</strong> Network Engineer</li>
+                    <li><i class="fas fa-laptop-code" style="width: 25px; color: var(--primary-color);"></i> <strong>Expertise:</strong> IoT, Front-End, HCI</li>
+                </ul>
+
+                <div style="margin-top: 15px;">
+                    <span class="skills-tag">#Networking</span>
+                    <span class="skills-tag">#SmartHome</span>
+                    <span class="skills-tag">#HCI</span>
+                    <span class="skills-tag">#Security</span>
+                </div>
+            </article>
+
+            <article class="card">
+                <h3><i class="fas fa-project-diagram"></i> System Architecture</h3>
+                <p>This prototype represents a secure, accessible, and user-centered interface for modern Cyber-Physical Systems.</p>
+                
+                <div style="background: #f8f9fa; padding: 15px; border-radius: 8px; margin-top: 15px;">
+                    <strong>Technical Stack:</strong>
+                    <ul style="margin-top: 10px; padding-left: 20px;">
+                        <li><strong>Frontend:</strong> HTML5 (Semantic), CSS3 (Responsive)</li>
+                        <li><strong>Interaction:</strong> Vanilla JavaScript (No Frameworks)</li>
+                        <li><strong>State Management:</strong> LocalStorage API (Client-side DB)</li>
+                        <li><strong>Accessibility:</strong> WCAG 2.1 Level AA Compliant</li>
+                    </ul>
+                </div>
+            </article>
+
+        </div>
+
+        <section style="margin-top: 40px;">
+            <h3><i class="fas fa-book-reader"></i> HCI Research Principles Applied</h3>
+            <div class="grid" style="grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); margin-top: 20px;">
+                
+                <div class="card" style="text-align: center;">
+                    <i class="fas fa-eye" style="font-size: 2rem; color: var(--primary-color); margin-bottom: 15px;"></i>
+                    <h4>Visibility of Status</h4>
+                    <p style="font-size: 0.9rem; color: #666;">Users are constantly informed about system state (e.g., Loading Spinners, Toggles).</p>
+                </div>
+
+                <div class="card" style="text-align: center;">
+                    <i class="fas fa-globe" style="font-size: 2rem; color: var(--primary-color); margin-bottom: 15px;"></i>
+                    <h4>Match Real World</h4>
+                    <p style="font-size: 0.9rem; color: #666;">Interfaces mimic physical objects (3D Switches, Thermostat) for intuitive control.</p>
+                </div>
+
+                <div class="card" style="text-align: center;">
+                    <i class="fas fa-universal-access" style="font-size: 2rem; color: var(--primary-color); margin-bottom: 15px;"></i>
+                    <h4>Inclusive Design</h4>
+                    <p style="font-size: 0.9rem; color: #666;">Tools for Color Blindness, Dyslexia, and Motor impairments are integrated.</p>
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+    <div id="toast"></div>
+    <script src="js/main.js"></script>
+</body>
+</html>

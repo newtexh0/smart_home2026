@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Home Dashboard</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* تنسيق محلي لترتيب العناصر داخل بطاقات الداشبورد */
+        .dash-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 15px;
+        }
+    </style>
+</head>
+<body>
+    <header class="container">
+        <h1><i class="fas fa-home"></i> My Smart Home</h1>
+    </header>
+
+    <nav class="container">
+        <ul>
+            <li><a href="index.html" aria-current="page">Dashboard</a></li>
+            <li><a href="rooms.html">Rooms</a></li>
+            <li><a href="devices.html">Devices</a></li>
+            <li><a href="scenes.html">Scenes</a></li>
+            <li><a href="accessibility.html">Accessibility</a></li>
+            <li><a href="about.html">About</a></li>
+        </ul>
+    </nav>
+
+    <main class="container">
+        <section aria-labelledby="overview-title">
+            <h2 id="overview-title">System Overview</h2>
+            <div class="grid">
+                
+                <article class="card">
+                    <div>
+                        <h3><i class="fas fa-shield-alt"></i> Security</h3>
+                        <p>Main Alarm System</p>
+                    </div>
+                    
+                    <div class="dash-row">
+                        <span id="btn-alarm-status" class="status-badge">Checking...</span>
+                        <button id="btn-alarm" class="iot-switch security-mode" onclick="toggleDevice('alarmSystem')"></button>
+                    </div>
+                </article>
+
+                <article class="card">
+                    <div>
+                        <h3><i class="fas fa-thermometer-half"></i> Climate</h3>
+                        <p>Living Room Thermostat</p>
+                    </div>
+                    <div class="img-placeholder" style="height: 60px; margin-top: 10px; color: #0288d1; font-weight: bold;">
+                        22°C - Auto
+                    </div>
+                </article>
+
+                <article class="card">
+                    <div>
+                        <h3><i class="fas fa-running"></i> Leaving?</h3>
+                        <p>Activate 'Away' Mode</p>
+                    </div>
+                    <button onclick="setScene('away')" style="width: 100%; margin-top:10px;">Activate</button>
+                </article>
+
+            </div>
+        </section>
+
+        <section style="margin-top: 30px;">
+            <h3>Quick Controls</h3>
+            <div class="grid">
+                <article class="card">
+                    <div class="dash-row">
+                        <span><i class="fas fa-lock"></i> Front Door</span>
+                        <button id="btn-door" class="iot-switch security-mode" onclick="toggleDevice('frontDoor')"></button>
+                    </div>
+                    <small id="btn-door-status" style="margin-top: 5px; display:block;">Checking...</small>
+                </article>
+
+                <article class="card">
+                    <div class="dash-row">
+                        <span><i class="fas fa-lightbulb"></i> Living Light</span>
+                        <button id="btn-living" class="iot-switch" onclick="toggleDevice('livingLight')"></button>
+                    </div>
+                    <small id="btn-living-status" style="margin-top: 5px; display:block;">Checking...</small>
+                </article>
+            </div>
+        </section>
+
+    </main>
+
+    <div id="toast">Action Completed</div>
+    <script src="js/main.js"></script>
+</body>
+</html>

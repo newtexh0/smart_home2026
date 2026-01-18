@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Accessibility Interactive Lab</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/all.min.css">
+    <style>
+        /* تنسيق خاص بصفحة الوصول */
+        .preview-box {
+            background: var(--card-bg);
+            border: 2px dashed var(--primary-color);
+            padding: 25px;
+            margin-bottom: 30px;
+            border-radius: 16px;
+            text-align: center;
+            transition: all 0.3s;
+        }
+        .setting-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+            border-bottom: 1px solid #eee;
+        }
+        .setting-desc small { display: block; color: #666; margin-top: 5px; }
+        
+        /* مؤشر الحركة الحي */
+        .motion-demo-icon {
+            font-size: 1.5rem;
+            color: var(--primary-color);
+            margin-right: 15px;
+            /* دوران مستمر */
+            animation: spin 2s linear infinite; 
+        }
+
+        /* تنسيق الـ Slider */
+        input[type=range] { width: 140px; accent-color: var(--primary-color); cursor: pointer; }
+    </style>
+</head>
+<body>
+    <header class="container"><h1>My Smart Home</h1></header>
+    
+    <nav class="container">
+        <ul>
+            <li><a href="index.html">Dashboard</a></li>
+            <li><a href="rooms.html">Rooms</a></li>
+            <li><a href="devices.html">Devices</a></li>
+            <li><a href="scenes.html">Scenes</a></li>
+            <li><a href="accessibility.html" aria-current="page">Accessibility</a></li>
+            <li><a href="about.html">About</a></li>
+        </ul>
+    </nav>
+
+    <main class="container">
+        <section>
+            <h2><i class="fas fa-universal-access"></i> Interactive Accessibility Lab</h2>
+            <p>Adjust settings and see immediate feedback. Designed for inclusive UX.</p>
+        </section>
+
+        <section class="preview-box" id="preview-area">
+            <h3>Live Preview Container</h3>
+            <p>Observe how text size, contrast, and color filters affect readability immediately.</p>
+            <div style="display: flex; align-items: center; justify-content: center; gap: 15px; margin-top: 15px;">
+                <button class="iot-switch active" style="pointer-events: none;"></button>
+                <span style="font-weight: bold;">Active State</span>
+                <button class="iot-switch" style="pointer-events: none;"></button>
+                <span style="color: #666;">Inactive</span>
+            </div>
+        </section>
+
+        <div class="grid">
+            
+            <article class="card">
+                <h3><i class="fas fa-eye"></i> Vision & Color</h3>
+                
+                <div class="setting-row">
+                    <div class="setting-desc">
+                        <strong>High Contrast Mode</strong>
+                        <small>Strict black & white interface.</small>
+                    </div>
+                    <button id="hc-toggle-btn" class="iot-switch" onclick="toggleHighContrast()"></button>
+                </div>
+
+                <div class="setting-row">
+                    <div class="setting-desc">
+                        <strong>Text Scaling</strong>
+                        <small>Drag to resize instantly.</small>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 10px;">
+                        <span style="font-size: 0.8rem">A</span>
+                        <input type="range" id="font-slider" min="100" max="160" step="5" value="100" oninput="updateFontSize(this.value)">
+                        <span style="font-size: 1.3rem">A</span>
+                    </div>
+                </div>
+
+                <div class="setting-row">
+                    <div class="setting-desc">
+                        <strong>Color Perception Sim</strong>
+                        <small>Simulate color vision deficiencies.</small>
+                    </div>
+                    <select id="color-filter-select" onchange="simulateColorBlindness(this.value)" style="padding: 8px; border-radius: 6px; border: 1px solid #ccc;">
+                        <option value="normal">Normal Vision</option>
+                        <option value="achromatopsia">Achromatopsia (Grayscale)</option>
+                        <option value="protanopia">Protanopia (Red-Blind)</option>
+                        <option value="deuteranopia">Deuteranopia (Green-Blind)</option>
+                    </select>
+                </div>
+            </article>
+
+            <article class="card">
+                <h3><i class="fas fa-brain"></i> Cognitive & Motor</h3>
+                
+                <div class="setting-row">
+                    <div class="setting-desc">
+                        <strong>Dyslexia Friendly Font</strong>
+                        <small>Improved character readability.</small>
+                    </div>
+                    <button id="dyslexia-btn" class="iot-switch" onclick="toggleDyslexiaMode()"></button>
+                </div>
+
+                <div class="setting-row">
+                    <div class="setting-desc" style="display: flex; align-items: center;">
+                        <div>
+                            <strong>Reduce Motion</strong>
+                            <small>Stops animation below.</small>
+                        </div>
+                    </div>
+                    <div style="display: flex; align-items: center;">
+                        <i class="fas fa-fan motion-demo-icon" title="Motion Indicator"></i>
+                        <button id="motion-btn" class="iot-switch" onclick="toggleReduceMotion()"></button>
+                    </div>
+                </div>
+
+                <div class="setting-row">
+                    <div class="setting-desc">
+                        <strong>Voice Feedback</strong>
+                        <small>Test audio response.</small>
+                    </div>
+                    <button onclick="speakStatus()" style="background: var(--primary-color); color: white; border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer;">
+                        <i class="fas fa-volume-up"></i> Speak Status
+                    </button>
+                </div>
+            </article>
+
+        </div>
+    </main>
+
+    <div id="toast"></div>
+    <script src="js/main.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const state = JSON.parse(localStorage.getItem('sh_state'));
+            if(state) {
+                // Sync Toggles
+                const mapBtn = {
+                    'highContrast': 'hc-toggle-btn',
+                    'dyslexiaMode': 'dyslexia-btn',
+                    'reduceMotion': 'motion-btn'
+                };
+                for (const [key, id] of Object.entries(mapBtn)) {
+                    const btn = document.getElementById(id);
+                    if(state[key] && btn) btn.classList.add('active');
+                }
+                
+                // Sync Slider
+                const slider = document.getElementById('font-slider');
+                if(state.fontSize && slider) slider.value = state.fontSize;
+
+                // Sync Dropdown
+                const select = document.getElementById('color-filter-select');
+                if(state.colorSim && select) select.value = state.colorSim;
+            }
+        });
+    </script>
+</body>
+</html>
