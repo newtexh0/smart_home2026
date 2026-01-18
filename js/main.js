@@ -225,3 +225,79 @@ function speakStatus() {
         window.speechSynthesis.speak(new SpeechSynthesisUtterance("System Operational. 4 Devices Active."));
     } else { alert("TTS Not Supported"); }
 }
+
+/* =========================================
+   7. ASSET MANAGEMENT (IMAGE PRELOADING)
+   HCI Principle: Perceived Performance
+   ========================================= */
+
+// قائمة بجميع الصور المستخدمة في المشروع
+const imageAssets = [
+    // Dashboard
+    'images/security-feed.jpg',
+    'images/energy-chart.png',
+    
+    // Rooms
+    'images/living-room.jpg',
+    'images/kitchen.jpg',
+    'images/bedroom.jpg',
+    'images/entrance.jpg',
+    
+    // Scenes
+    'images/scene-night.jpg',
+    'images/scene-away.jpg',
+    'images/scene-reading.jpg',
+    
+    // About
+    'images/system-arch.png'
+];
+
+/**
+ * Preloads images into browser cache for instant navigation.
+ */
+function preloadImages() {
+    console.log('🔄 System: Preloading Assets...');
+    
+    imageAssets.forEach((src) => {
+        const img = new Image();
+        img.src = src;
+        // Optional: Log success/error for debugging
+        // img.onload = () => console.log(`Loaded: ${src}`);
+        // img.onerror = () => console.warn(`Missing: ${src}`);
+    });
+}
+
+// استدعاء الوظيفة عند بدء التشغيل
+document.addEventListener('DOMContentLoaded', () => {
+    // ... (الكود السابق موجود هنا)
+    
+    // Start Preloading immediately
+    preloadImages();
+    
+    // إضافة معالج للأخطاء للصور في حال لم يقم المستخدم بإضافتها بعد
+    handleMissingImages();
+});
+
+/**
+ * Fallback for missing images (Safety Net)
+ * If an image fails to load, show a nice colored placeholder instead.
+ */
+function handleMissingImages() {
+    const allImages = document.querySelectorAll('img');
+    
+    allImages.forEach(img => {
+        img.onerror = function() {
+            console.warn(`Image failed: ${this.src}. Reverting to placeholder.`);
+            this.style.display = 'none'; // Hide broken image icon
+            
+            // Create a fallback div dynamically
+            const fallback = document.createElement('div');
+            fallback.className = 'img-placeholder';
+            fallback.innerHTML = `<i class="fas fa-image"></i>&nbsp; Image Not Found`;
+            fallback.style.height = this.style.height || '160px';
+            
+            // Insert fallback before the broken image
+            this.parentNode.insertBefore(fallback, this);
+        };
+    });
+}
